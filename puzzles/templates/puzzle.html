@@ -1,0 +1,220 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load puzzle_tags %}
+{% load static %}
+{% load mathfilters %}
+
+{% block page-title %}
+<title>{{ puzzle.name }}</title>
+
+<style>
+    /* CSS for the popup */
+    .popup {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: #008080;
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        opacity: 1;
+        transition: opacity 1s;
+    }
+</style>
+{% endblock %}
+
+{% block top-left-actions %}
+{% if round.slug != intro_round_slug %}
+<a href="{% url 'round' round.slug %}" class="btn">{{ round.name }}</a>
+{% endif %}
+{% if team and not hunt_is_closed %}
+<a href="{% url 'solve' puzzle.slug %}" class="btn">{% translate "Call in an answer" %}</a>
+{% if not puzzle.is_meta and num_free_answers_remaining > 0 and puzzle_answer is None %}
+<a href="{% url 'free-answer' puzzle.slug %}" class="btn">{% translate "Use free answer" %}</a>
+{% endif %}
+{% endif %}
+{% if can_view_hints %}
+<a href="{% url 'hints' puzzle.slug %}" class="btn">{% if can_ask_for_hints %}{% translate "Ask for a hint" %}{% else %}{% translate "View hints" %}{% endif %}</a>
+{% endif %}
+{% if hunt_is_closed or not team and hunt_is_over %}
+<a href="{% url 'post-hunt-solve' puzzle.slug %}" class="btn">{% translate "Check your answer spoiler-free" %}</a>
+{% endif %}
+{% if hunt_is_over or is_superuser %}
+<a href="{% url 'solution' puzzle.slug %}" class="btn">{% translate "View solution" %}</a>
+<a href="{% url 'stats' puzzle.slug %}" class="btn">{% translate "Stats" %}</a>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<script>
+    // confusingly named, talk to andy if you're confused
+    let first_hint = "{{ first_hint }}";
+    let hint;
+    let hint2;
+    let hint3;
+
+    var startTime = new Date().getTime();
+    if(first_hint < 30) {
+        hint = setInterval(function() {
+            location.reload();
+        }, (30 - first_hint) * 1000);
+    } else if(first_hint < 60) {
+        hint2 = setInterval(function() {
+            location.reload();
+        }, (60 - first_hint) * 1000);
+    } else if(first_hint < 90) {
+        hint3 = setInterval(function() {
+            location.reload();
+        }, (90 - first_hint) * 1000);
+    }
+
+    function updateTimer() {
+        var now = new Date();
+        var timeDifference = now - startTime + first_hint * 1000;
+
+        document.getElementById("timer").innerHTML = msToHMS(timeDifference) + " since start";
+        setTimeout(updateTimer, 20);
+    }
+
+    function msToHMS( ms ) {
+        // 1- Convert to seconds:
+        let seconds = ms / 1000;
+        // 2- Extract hours:
+        let hours = parseInt( seconds / 3600 ); // 3,600 seconds in 1 hour
+        seconds = seconds % 3600; // seconds remaining after extracting hours
+        // 3- Extract minutes:
+        let minutes = parseInt( seconds / 60 ); // 60 seconds in 1 minute
+        // 4- Keep only seconds not extracted to minutes:
+        seconds = parseInt(( seconds % 60 ) * 100) / 100;
+        
+        if (hours < 10) {
+            hours = "0" + hours
+        }
+
+        if (minutes < 10) {
+            minutes = "0" + minutes
+        }
+
+        let suffix = "";
+        let prefix = "";
+        if (seconds == parseInt(seconds)) {
+            suffix = ".00";
+        } else if (seconds * 10 == parseInt(seconds * 10)) {
+            suffix = "0";
+        }
+
+        if (seconds < 10) {
+            prefix = "0";
+        }
+
+        seconds = prefix + seconds + suffix;
+
+        return ( hours+":"+minutes+":"+seconds);
+    }
+
+    window.addEventListener("load", function () {
+        setTimeout(function () {
+            var popup = document.getElementById("popup");
+            popup.style.opacity = "0";
+        }, 1000); // 1000 milliseconds (1 second)
+
+        updateTimer();
+    });
+
+    // clean up
+    window.addEventListener('beforeunload', function() {
+        clearInterval(hint);
+        clearInterval(hint2);
+        clearInterval(hint3);
+    });
+</script>
+
+<h1>
+    {{ puzzle.name }}
+    {% if puzzle_answer %}
+    <div class="solved-title-marker">{% translate "Solved!" %} <span class="solved-title-answer">{{ puzzle_answer }}</span></div>
+    {% endif %}
+</h1>
+
+<main class="puzzle-main clipboard-container" style="position:relative;">
+    <div class="hinting">
+        <div id="timer" class="timer">00:00</div>
+
+        {% if puzzle.prompts_on %}
+        <div class="timer-explain">This timer is running from the time you first unlocked this group of puzzles.
+            You'll be prompted with a location based on how long you've spent on this section of the puzzle.
+        </div>
+        {% if first_hint > 30 %}
+            <p><strong>Prompt:</strong> {{ puzzle.prompt }}</p>
+        {% endif %}
+        {% endif %}
+
+        {% if puzzle.hints_on %}
+        <div class="timer-explain">This timer is running from the time you first unlocked this group of puzzles.
+            Hints will be distributed based on this timer (thus, when you get hints for this puzzle you will get hints 
+            for every other unsolved puzzle).
+        </div>
+        {% if team and team.division == 2 and puzzle.novice_hints %}        
+            {% if first_hint > 30 %}
+            <p><strong>Hint 1:</strong> {{ puzzle.hint_one_novice }}</p>
+            {% endif %}
+            {% if first_hint > 60 %}
+            <p><strong>Hint 2:</strong> {{ puzzle.hint_two_novice }}</p>
+            {% endif %}
+            {% if first_hint > 90 %}
+            <p><strong>Hint 3:</strong> {{ puzzle.hint_three_novice }}</p>
+            {% endif %}
+        {% else %}        
+            {% if first_hint > 30 %}
+            <p><strong>Hint 1:</strong> {{ puzzle.hint_one }}</p>
+            {% endif %}
+            {% if first_hint > 60 %}
+            <p><strong>Hint 2:</strong> {{ puzzle.hint_two }}</p>
+            {% endif %}
+            {% if first_hint > 90 %}
+            <p><strong>Hint 3:</strong> {{ puzzle.hint_three }}</p>
+            {% endif %}
+        {% endif %}
+        {% else %}
+        <div class="timer-explain">This timer is running from the time you first unlocked this group of puzzles. There are no hints for this puzzle.
+        </div>
+        {% endif %}
+    </div>
+
+    {% for erratum in visible_errata %}
+    {% if erratum.puzzle == puzzle and erratum.puzzle_text %}
+    <div class="puzzle-erratum">
+        {% if not erratum.published %}
+        <strong>[<a href="{% url 'admin:puzzles_erratum_change' erratum.id %}">{% translate "UNPUBLISHED" %}</a>]</strong>
+        {% endif %}
+        {% format_time erratum.timestamp "DATE_AT_TIME" as hint_time %}
+        {% blocktranslate %}On {{ hint_time }}{% endblocktranslate %},
+        {{ erratum.puzzle_text|safe }}
+    </div>
+    {% endif %}
+    {% endfor %}
+
+    {% puzzleblock puzzle-body %}
+    {% if puzzle_body %}{{ puzzle_body }}{% elif template_name %}
+    {% blocktranslate %}This puzzle doesn&rsquo;t seem to exist yet.
+    Searched for a puzzle template named <code>{{ template_name }}</code>{% endblocktranslate %}
+    {% else %}
+    {% translate "This puzzle template exists, but it doesn&rsquo;t seem to define a puzzle content block. Check the post production guide?" %}
+    {% endif %}
+    <div id="popup" class="popup">
+        {% if first_hint < 30 %}
+            No hints yet!
+        {% elif first_hint < 60 %}
+            One hint unlocked.
+        {% elif first_hint < 90 %}
+            Two hints unlocked.
+        {% else %}
+            Three hints unlocked.
+        {% endif %}
+    </div>
+</main>
+
+<script src="{% static "js/copyjack.js" %}"></script>
+
+{% endblock %}

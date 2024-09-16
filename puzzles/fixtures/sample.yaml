@@ -1,0 +1,344 @@
+- model: puzzles.Round
+  pk: 1
+  fields:
+    name: Round 1
+    slug: sample
+- model: puzzles.Round
+  pk: 2
+  fields:
+    name: Round 2
+    slug: sample-ii
+- model: puzzles.Round
+  pk: 3
+  fields:
+    name: Runaround
+    slug: sample-iii
+    display_locked: false
+- model: puzzles.Round
+  pk: 4
+  fields:
+    name: Final Room
+    slug: sample-iv
+    selection_stage: true
+- model: puzzles.Preamble
+  pk: 1
+  fields:
+    name: Preamble I
+    slug: houston-i
+    body_template: houston.html
+    unlock_global: 0
+    round: 1
+- model: puzzles.Preamble
+  pk: 2
+  fields:
+    name: Preamble II
+    slug: houston-ii
+    body_template: houston.html
+    unlock_global: 2
+    round: 2
+- model: puzzles.Preamble
+  pk: 3
+  fields:
+    name: Preamble III
+    slug: houston-iii
+    body_template: houston.html
+    unlock_global: 4
+    round: 3
+- model: puzzles.Preamble
+  pk: 4
+  fields:
+    name: Preamble IV
+    slug: houston-iv
+    body_template: houston.html
+    unlock_global: 5
+    round: 4
+- model: puzzles.UnlockGroup
+  pk: 1
+  fields:
+    name: round1
+    count: 2
+- model: puzzles.UnlockGroup
+  pk: 2
+  fields:
+    name: round2
+    count: 2
+- model: puzzles.UnlockGroup
+  pk: 3
+  fields:
+    name: round3
+    count: 1
+- model: puzzles.UnlockGroup
+  pk: 4
+  fields:
+    name: round4_1
+    count: 1
+- model: puzzles.UnlockGroup
+  pk: 5
+  fields:
+    name: round4_2
+    count: 1
+- model: puzzles.Puzzle
+  pk: 1
+  fields:
+    name: Ambiguity
+    slug: ambiguity
+    body_template: ambiguity.html
+    answer: round1p1
+    hint_one: lorem
+    hint_two: ipsum
+    hint_three: dolor
+    hint_one_novice: none
+    hint_two_novice: none
+    hint_three_novice: none
+    round: 1
+    unlock_group: 1
+    unlock_global: 0
+- model: puzzles.Puzzle
+  pk: 2
+  fields:
+    name: "Meta: Sample"
+    slug: sample
+    body_template: sample.html
+    answer: round1p2
+    hint_one: lorem
+    hint_two: ipsum
+    hint_three: dolor
+    hint_one_novice: set
+    hint_two_novice: amit
+    hint_three_novice: lol
+    round: 1
+    unlock_group: 1
+    unlock_global: 0
+- model: puzzles.Puzzle
+  pk: 3
+  fields:
+    name: Bad Cryptogram Puzzle
+    slug: bad-cryptogram-puzzle
+    body_template: bad-cryptogram-puzzle.html
+    answer: round2p1
+    hint_one: lorem
+    hint_two: ipsum
+    hint_three: dolor
+    hint_one_novice: none
+    hint_two_novice: none
+    hint_three_novice: none
+    round: 2
+    unlock_group: 2
+    unlock_global: 0
+- model: puzzles.Puzzle
+  pk: 4
+  fields:
+    name: Break It Down
+    slug: break-it-down
+    body_template: break-it-down.html
+    answer: round2p2
+    hint_one: lorem
+    hint_two: ipsum
+    hint_three: dolor
+    hint_one_novice: none
+    hint_two_novice: none
+    hint_three_novice: none
+    round: 2
+    unlock_group: 2
+    unlock_global: 0
+- model: puzzles.Puzzle
+  pk: 5
+  fields:
+    name: Championship
+    slug: championship
+    body_template: championship.html
+    answer: round3p1
+    prompts_on: true
+    prompt: go to main quad smh
+    hints_on: false
+    hint_one: lorem
+    hint_two: ipsum
+    hint_three: dolor
+    hint_one_novice: none
+    hint_two_novice: none
+    hint_three_novice: none
+    round: 3
+    unlock_group: 3
+    unlock_global: 0
+- model: puzzles.Puzzle
+  pk: 6
+  fields:
+    name: Runaround II
+    slug: runaround-ii
+    body_template: championship.html
+    answer: round3p1
+    prompts_on: true
+    prompt: go to main quad smh
+    hints_on: false
+    hint_one: lorem
+    hint_two: ipsum
+    hint_three: dolor
+    hint_one_novice: none
+    hint_two_novice: none
+    hint_three_novice: none
+    round: 3
+    unlock_group: 3
+    unlock_global: 5
+- model: puzzles.Puzzle
+  pk: 7
+  fields:
+    name: Runaround III
+    slug: runaround-iii
+    body_template: championship.html
+    answer: round3p1
+    prompts_on: true
+    prompt: go to main quad smh
+    hints_on: false
+    hint_one: lorem
+    hint_two: ipsum
+    hint_three: dolor
+    hint_one_novice: none
+    hint_two_novice: none
+    hint_three_novice: none
+    round: 3
+    unlock_group: 3
+    unlock_global: 6
+- model: puzzles.Puzzle
+  pk: 8
+  fields:
+    name: Runaround IV
+    slug: runaround-iv
+    body_template: championship.html
+    answer: round3p1
+    prompts_on: true
+    prompt: go to main quad smh
+    hints_on: false
+    hint_one: lorem
+    hint_two: ipsum
+    hint_three: dolor
+    hint_one_novice: none
+    hint_two_novice: none
+    hint_three_novice: none
+    round: 3
+    unlock_group: 3
+    unlock_global: 7
+- model: puzzles.Puzzle
+  pk: 9
+  fields:
+    name: Diagramless
+    slug: diagramless
+    body_template: diagramless.html
+    answer: round4p1
+    hint_one: lorem
+    hint_two: ipsum
+    hint_three: dolor
+    novice_hints: true
+    hint_one_novice: set
+    hint_two_novice: amit
+    hint_three_novice: lol
+    round: 4
+    unlock_group: 4
+    unlock_global: 0
+- model: puzzles.Puzzle
+  pk: 10
+  fields:
+    name: Geometry
+    slug: geometry
+    body_template: geometry.html
+    answer: round4p2
+    hint_one: lorem
+    hint_two: ipsum
+    hint_three: dolor
+    novice_hints: true
+    hint_one_novice: set
+    hint_two_novice: amit
+    hint_three_novice: lol
+    round: 4
+    unlock_group: 5
+    unlock_global: 9
+- model: auth.User
+  pk: 1
+  fields:
+    username: admin
+    password: pbkdf2_sha256$150000$admin$rHCEm45iy0F69gtXVPfBkSQ0Y5ubeAvCxGmb2M5QokM= # password is "admin"
+    is_staff: True
+    is_superuser: True
+- model: auth.User
+  pk: 2
+  fields:
+    username: test
+    password: pbkdf2_sha256$150000$test$tdsbQtbroRvN08LIFFbEvVL/5h5OP1WSUgjNAFGofjo= # password is "test"
+- model: auth.User
+  pk: 3
+  fields:
+    username: test2
+    password: pbkdf2_sha256$150000$test$tdsbQtbroRvN08LIFFbEvVL/5h5OP1WSUgjNAFGofjo= # password is "test"
+- model: auth.User
+  pk: 4
+  fields:
+    username: test3
+    password: pbkdf2_sha256$150000$test$tdsbQtbroRvN08LIFFbEvVL/5h5OP1WSUgjNAFGofjo= # password is "test"
+- model: auth.User
+  pk: 5
+  fields:
+    username: test4
+    password: pbkdf2_sha256$150000$test$tdsbQtbroRvN08LIFFbEvVL/5h5OP1WSUgjNAFGofjo= # password is "test"
+- model: auth.User
+  pk: 6
+  fields:
+    username: test5
+    password: pbkdf2_sha256$150000$test$tdsbQtbroRvN08LIFFbEvVL/5h5OP1WSUgjNAFGofjo= # password is "test"
+- model: auth.User
+  pk: 7
+  fields:
+    username: test6
+    password: pbkdf2_sha256$150000$test$tdsbQtbroRvN08LIFFbEvVL/5h5OP1WSUgjNAFGofjo= # password is "test"
+- model: auth.User
+  pk: 8
+  fields:
+    username: test7
+    password: pbkdf2_sha256$150000$test$tdsbQtbroRvN08LIFFbEvVL/5h5OP1WSUgjNAFGofjo= # password is "test"
+- model: puzzles.Team
+  pk: 1
+  fields:
+    user: 1
+    team_name: admin
+    creation_time: "9001-01-01T00:00:00+00:00"
+    is_prerelease_testsolver: True
+- model: puzzles.Team
+  pk: 2
+  fields:
+    user: 2
+    team_name: test
+    creation_time: "9001-01-01T00:00:00+00:00"  
+- model: puzzles.Team
+  pk: 3
+  fields:
+    user: 3
+    team_name: test2
+    creation_time: "9001-01-01T00:00:00+00:00"
+- model: puzzles.Team
+  pk: 3
+  fields:
+    user: 3
+    team_name: test3
+    creation_time: "9001-01-01T00:00:00+00:00"
+- model: puzzles.Team
+  pk: 4
+  fields:
+    user: 4
+    team_name: test4
+    creation_time: "9001-01-01T00:00:00+00:00"
+- model: puzzles.Team
+  pk: 5
+  fields:
+    user: 5
+    team_name: test5
+    creation_time: "9001-01-01T00:00:00+00:00"
+- model: puzzles.Team
+  pk: 6
+  fields:
+    user: 6
+    team_name: test6
+    creation_time: "9001-01-01T00:00:00+00:00"
+- model: puzzles.Team
+  pk: 7
+  fields:
+    user: 7
+    team_name: test7
+    creation_time: "9001-01-01T00:00:00+00:00"

@@ -1,0 +1,45 @@
+{% load i18n %}
+<tbody class="puzzles-section">
+    <table class="puzzles-list">
+        <tbody class>
+            {% for data in round.puzzles %}
+            
+                <th colspan="4">
+                    {% if 'Preamble' in data.puzzle.name %}
+                    
+                        <a href="{% url 'preamble' data.puzzle.slug %}">
+                            <div class="round-btn">{{ data.puzzle.name }}</div>
+                        </a>
+                    
+                    {% endif %}
+                </th>
+            {% endfor %}
+        </tbody>
+            {% for data in all_puzzles %}
+            <tbody class>
+                <th colspan="4">
+                    {% if data in puzzle_helper %}
+                            <a href="{% url 'puzzle' data.slug %}">
+                                {% if data.new %}
+                                <div class="puzzles-new">{% translate "new" %}</div>
+                                {% endif %}
+                                <div class="round-btn">{{ data.name }} </div>
+                            </a>
+                        </div>
+                    {% elif round.round.display_locked %}       
+                        <href="{% url 'puzzle' data.slug %}">
+                            {% if data.new %}
+                            <div class="round-btn">{% translate "new" %}</div>
+                            {% endif %}
+                            <div class="round-btn-disabled">{{ data.name }} 
+                                <img src="../static/images/padlock.png" class="lock">
+                            </div>
+                            
+                        </href>     
+                    {% endif %}
+                </th>
+            </tbody>
+            {% endfor %}
+        
+    </table>
+</tbody>
