@@ -63,7 +63,6 @@ from puzzles.forms import (
 )
 
 from puzzles.hunt_config import (
-    ADVANCED_CUTOFF_MINUTES,
     STORY_PAGE_VISIBLE,
     WRAPUP_PAGE_VISIBLE,
     INITIAL_STATS_AVAILABLE,
@@ -1647,16 +1646,9 @@ def novice_advanced_middleware(get_response):
             return response
 
         if request.path.startswith('/novice/'):
-            # anti-cheat
-            if dbteam.time_so_far < ADVANCED_CUTOFF_MINUTES * 300000:
-                messages.warning(request, _('Enrolled as advanced because of solve time.'))
-                dbteam.division = 1
-                dbteam.save()
-                request.context.team.division = 1
-            else:
-                dbteam.division = 2
-                dbteam.save()
-                request.context.team.division = 2
+            dbteam.division = 2
+            dbteam.save()
+            request.context.team.division = 2
         elif request.path.startswith('/advanced/'):
             messages.info(request, _('Successfully enrolled as advanced!'))
             dbteam.division = 1

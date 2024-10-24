@@ -11,13 +11,8 @@
 {% block top-left-actions %}
 {% if round.slug != intro_round_slug %}
 {% if team and team.division == 0 and round.selection_stage %}
-{% if team.time_so_far < advanced_cutoff_minutes|mul:60000 %}
-<p class="content roman">Due to the speed you have solved the previous problems, 
-    you've been automatically placed into the ADVANCED division. Click below to continue.</p>
-{% else %}
 <p class="content roman">Choose whether to go back as a novice or advanced division. <b>YOU CAN ONLY CHOOSE THIS ONCE.</b></p>
 <a href="{% url 'novice' round.slug %}" class="btn">Back to {{ round.name }} as novice</a>
-{% endif %}
 <a href="{% url 'advanced' round.slug %}" class="btn">Back to {{ round.name }} as advanced</a>
 {% else %}
 <a href="{% url 'round' round.slug %}" class="btn">{{ round.name }}</a>

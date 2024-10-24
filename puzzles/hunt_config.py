@@ -50,8 +50,6 @@ HUNT_CLOSE_TIME = timezone.make_aware(datetime.datetime(
 MAX_GUESSES_PER_PUZZLE = 10
 MAX_MEMBERS_PER_TEAM = 10
 
-ADVANCED_CUTOFF_MINUTES = 2
-
 # If this is disabled, teams will not get any hints.
 HINTS_ENABLED = False
 # Teams accumulate this many hints each day.
