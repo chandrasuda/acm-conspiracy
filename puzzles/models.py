@@ -608,8 +608,8 @@ class Team(models.Model):
         local_solves = collections.defaultdict(int)
         local_preamble = collections.defaultdict(int)
         for puzzle in self.solves.values():
-            if puzzle.is_meta:
-                continue
+            # if puzzle.is_meta:
+            #     continue
             local_solves[puzzle.round.slug] += 1
             if puzzle.round.slug == INTRO_ROUND_SLUG:
                 continue

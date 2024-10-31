@@ -19,6 +19,7 @@ from puzzles.models import (
     Survey,
     Hint,
     PuzzleFirstViewTime,
+    UnlockGroup
 )
 
 class RoundAdmin(admin.ModelAdmin):
@@ -136,3 +137,4 @@ admin.site.register(ExtraGuessGrant, ExtraGuessGrantAdmin)
 admin.site.register(Erratum, ErratumAdmin)
 admin.site.register(Survey, SurveyAdmin)
 admin.site.register(Hint, HintAdmin)
+admin.site.register(UnlockGroup)
