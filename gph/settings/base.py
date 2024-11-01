@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'puzzles',
 ]
 
+DOMAIN =  'web-production-cc022.up.railway.app'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     "whitenoise.middleware.WhiteNoiseMiddleware",
