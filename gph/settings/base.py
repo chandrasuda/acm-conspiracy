@@ -28,7 +28,7 @@ RECAPTCHA_SITEKEY = None
 RECAPTCHA_SECRETKEY = None
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['web-production-cc022.up.railway.app']
 
