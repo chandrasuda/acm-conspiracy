@@ -1,1 +1,1 @@
-web: gunicorn acm-conspiracy.wsgi
+web: gunicorn gph.wsgi
