@@ -14,3 +14,5 @@ py-cord==2.0.0rc1
 requests==2.31.0
 Twisted==23.8.0
 uvicorn[standard]==0.23.2
+dj-database-url==2.1.0  # Add this
+whitenoise==6.5.0      # Add this for static files
