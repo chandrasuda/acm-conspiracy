@@ -6,7 +6,7 @@
   "deploy": {
     "runtime": "V2",
     "numReplicas": 1,
-    "startCommand": "gunicorn gph.wsgi --env DJANGO_SETTINGS_MODULE=gph.settings.base",
+    "startCommand": "python manage.py migrate --noinput && python manage.py collectstatic --noinput && gunicorn gph.wsgi --env DJANGO_SETTINGS_MODULE=gph.settings.base",
     "sleepApplication": false,
     "restartPolicyType": "ON_FAILURE",
     "restartPolicyMaxRetries": 10
