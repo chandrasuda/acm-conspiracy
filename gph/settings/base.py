@@ -30,9 +30,9 @@ RECAPTCHA_SECRETKEY = None
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['web-production-cc022.up.railway.app']
+ALLOWED_HOSTS = ['puzzlehunt.up.railway.app']
 
-CSRF_TRUSTED_ORIGINS = ['https://web-production-cc022.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['puzzlehunt.up.railway.app']
 
 # Application definition
 
