@@ -30,7 +30,7 @@ RECAPTCHA_SECRETKEY = None
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://puzzlehunt.up.railway.app']
+ALLOWED_HOSTS = ['puzzlehunt.up.railway.app']
 
 CSRF_TRUSTED_ORIGINS = ['https://puzzlehunt.up.railway.app']
 
